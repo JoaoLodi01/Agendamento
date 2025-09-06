@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\AgendaRequest;
+
 
 class AgendaController extends Controller
 {
@@ -11,13 +12,13 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AgendaRequest $request)
     {
         //
     }
@@ -33,7 +34,7 @@ class AgendaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(AgendaRequest $request, string $id)
     {
         //
     }
