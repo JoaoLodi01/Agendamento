@@ -1,7 +1,7 @@
 <template>
-    <div class="flex items-center justify-center min-h-screen bg-gray-100">
-        <div class="bg-white border-2 border-gray-300 rounded-xl shadow-lg p-8 w-full max-w-md">
-            <h1 class="text-2xl font-bold text-center mb-6">Login</h1>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100 w-96">
+        <div class="bg-white border-2 border-gray-300 rounded-xl shadow-lg p-10 w-full max-w-md">
+            <h1 class="text-3xl font-bold text-center mb-6">Login</h1>
 
             <q-form @submit.prevent="">
 
@@ -17,15 +17,20 @@
                 type="password" 
                 label="Senha" 
                 outlined
-                class="mb-3"
+                class=""
                 :rules="[val => !!val || 'A senha é necessária!']"
             >
                 <template v-slot:append>
-                <div @click="">
-                    <PasswordIcon />
-                </div>
+                    <div @click="">
+                        <PasswordIcon />
+                    </div>
+                    
                 </template>
             </q-input>
+
+            <span class="text-blue-500 cursor-pointer flex justify-end text-xs">
+                Esqueceu sua senha?
+            </span>
 
             <div class="text-center mt-4 mb-4">
                 <q-btn 
@@ -38,8 +43,9 @@
             </div>
 
             <div class="flex justify-between text-xs">
-                <span class="text-blue-500 cursor-pointer mr-2">Não tem uma conta?</span>
-                <span class="text-blue-500 cursor-pointer mb-2">Esqueceu sua senha?</span>
+                <span class="text-blue-500 cursor-pointer mr-2">
+                    Não tem uma conta?
+                </span>
             </div>
             </q-form>
         </div>

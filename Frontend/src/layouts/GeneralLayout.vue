@@ -2,9 +2,6 @@
     <q-layout view="lHh Lpr lFf">
         <q-header elevated>
             <q-toolbar>
-                <q-toolbar-title>
-                    
-                </q-toolbar-title>
                 <div>
                     <span class="cursor-pointer">
                         Sobre
@@ -13,13 +10,16 @@
                         Contato
                     </span>
                 </div>
+                <q-toolbar-title>
+                    
+                </q-toolbar-title>
                 
-                <div>
+                <div class="">
                     <q-btn
                         flat
                         label="Cadastrar"
                         @click="openRegister"
-                        class="text-black bg-white rounded-sm"
+                        class="text-black bg-white rounded-sm mr-4"
 				    />
 
                     <q-btn
