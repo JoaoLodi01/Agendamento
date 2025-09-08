@@ -7,7 +7,8 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../layouts/AuthLayout.vue'),
         children: [
             { path: 'login', component: () => import('../pages/Auth/Login.vue') },
-            { path: 'register', component: () => import('../pages/Auth/Register.vue') }
+            { path: 'register', component: () => import('../pages/Auth/Register.vue') },
+            { path: 'reset-password', component: () => import('../pages/Auth/ResetPassword.vue') },
         ]
     },
 
@@ -15,7 +16,9 @@ const routes: RouteRecordRaw[] = [
         path: '/general',
         component: () => import('../layouts/GeneralLayout.vue'),
         children: [
-            { path: '', component: () => import('../pages/General/GeneralView.vue') }
+            { path: '', component: () => import('../pages/General/GeneralView.vue') },
+            { path: '/about', component: () => import('../pages/General/AboutView.vue') },
+            { path: '/contact', component: () => import('../pages/General/ContactView.vue') },
         ]
     },
 
@@ -27,24 +30,25 @@ const routes: RouteRecordRaw[] = [
             { path: '', component: () => import('../pages/Clients/ClientView.vue') }
         ]
     },
-    /*
+
     // Área do admin
     {
         path: '/admin',
         component: () => import('../layouts/AdminLayout.vue'),
+        
         children: [
-            { path: '', component: () => import('../pages/Admin/Dashboard.vue') },
-            { path: 'agenda', component: () => import('../pages/Admin/Agenda.vue') },
-            { path: 'comissions', component: () => import('../pages/Admin/Comissions.vue') },
-            { path: 'services', component: () => import('../pages/Admin/Services.vue') },
-            { path: 'attendants', component: () => import('../pages/Admin/Attendants.vue') },
-            { path: 'clients', component: () => import('../pages/Admin/Clients.vue') },
-            { path: 'categories', component: () => import('../pages/Admin/Categories.vue') },
-            { path: 'products', component: () => import('../pages/Admin/Products.vue') },
-            { path: 'settings', component: () => import('../pages/Admin/Settings.vue') }
+            { path: '', component: () => import('../pages/Dashboard/MainDashboard.vue') },
+            { path: 'agenda', component: () => import('../pages/Agenda/MainAgenda.vue') },
+            { path: 'comissions', component: () => import('../pages/Comissions/MainComissions.vue') },
+            { path: 'services', component: () => import('../pages/Services/MainServices.vue') },
+            { path: 'attendants', component: () => import('../pages/Attendants/MainAttendants.vue') },
+            { path: 'clients', component: () => import('../pages/Clients/MainClients.vue') },
+            { path: 'categories', component: () => import('../pages/Categories/MainCategories.vue') },
+            { path: 'products', component: () => import('../pages/Products/MainProducts.vue') },
+            { path: 'settings', component: () => import('../pages/Settings/MainSettings.vue') },
+            { path: 'license', component: () => import('../pages/License/MainLicense.vue') }
         ]
     },
-    */
 
     {
         path: '/:catchAll(.*)*',

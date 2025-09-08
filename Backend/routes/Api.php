@@ -9,8 +9,10 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\AttendantController;
 use App\Http\Controllers\ComissionController;
+use App\Http\Controllers\SettingsController;
   
-Route::post('login', [AuthController::class, 'login']);
+Route::post('auth/login', [AuthController::class, 'login']);
+Route::post('auth/register', [AuthController::class, 'register']);
     
 Route::middleware('auth:sanctum')->group(function () {
 

@@ -9,6 +9,10 @@ use App\Http\Requests\LoginAuthRequest;
 
 class AuthController extends Controller
 {
+    public function __construct(
+        protected AuthService $authService
+    ){}
+
     public function login(LoginAuthRequest $request)
     {
         $user = Attendant::where('email', $request->email)->first();
@@ -26,6 +30,11 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function register(RegisterAuthRequest $request)
+    {
+        $this->authService->store($request->validated());
+    } 
 
     public function logout(Request $request)
     {

@@ -1,31 +1,87 @@
-import { defineBoot } from '#q-app/wrappers';
-import axios, { type AxiosInstance } from 'axios';
+import { boot } from 'quasar/wrappers';
+import { LocalStorage } from 'quasar';
+import axios from 'axios';
 
-declare module 'vue' {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-    $api: AxiosInstance;
-  }
-}
+axios.defaults.withCredentials = true;
 
-// Be careful when using SSR for cross-request state pollution
-// due to creating a Singleton instance here;
-// If any client changes this (global) instance, it might be a
-// good idea to move this instance creation inside of the
-// "export default () => {}" function below (which runs individually
-// for each client)
-const api = axios.create({ baseURL: 'https://api.example.com' });
+    const api = axios.create({ baseURL: process.env.API_URL });
 
-export default defineBoot(({ app }) => {
-  // for use inside Vue files (Options API) through this.$axios and this.$api
+    export default boot(({ app, router }) => {
+        api.interceptors.request.use((config) => {
 
-  app.config.globalProperties.$axios = axios;
-  // ^ ^ ^ this will allow you to use this.$axios (for Vue Options API form)
-  //       so you won't necessarily have to import axios in each vue file
+            const token = LocalStorage.getItem("auth_token");
 
-  app.config.globalProperties.$api = api;
-  // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
-  //       so you can easily perform requests against your app's API
-});
+            const publicAPIRoutes = [
+            '/forgot-password',
+            '/reset-password',
+            '/auth/login',
+            '/registers/create'
+
+            ];
+
+            const isPublic = publicAPIRoutes.some(route => config.url.includes(route));
+
+            if (!token && !isPublic && LocalStorage.getItem("auth_token"))
+            {
+                console.log('token:', token);
+                
+                LocalStorage.remove("user_id");
+                LocalStorage.remove("auth_token");
+                router.replace({ path: '/login' });
+            
+                return Promise.reject(new Error("Usuário não autenticado"));
+            }
+
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+
+            return config;
+        });
+
+        api.interceptors.response.use((response) => response, (error) => {
+            const publicAPIRoutes = [
+                '/forgot-password',
+                '/reset-password',
+                '/auth/login',
+                '/registers/create',
+
+            ];
+            
+            const requestUrl = error.config?.url || '';
+            const isPublic = publicAPIRoutes.some(route => requestUrl.includes(route));
+            console.error(error)
+            
+            if(!isPublic && error?.response?.status === 401)
+            {
+                console.log('Vai pro login');
+                const msg =
+                    error.response?.data?.message ||
+                    error.response?.data?.errorMessage ||
+                    error.message ||
+                    'Erro inesperado na resposta da API';
+
+                LocalStorage.remove("user_id");
+                LocalStorage.remove("auth_token");
+
+                router.replace({ path: '/login' });
+                
+                console.log('LOGIN: ', LocalStorage.getItem("user_id"));
+                
+                return Promise.reject(error);
+
+            } else {
+            const msg =
+                error.response?.data?.message ||
+                error.response?.data?.errorMessage ||
+                error.message ||
+                'Erro inesperado na resposta da API';
+                return Promise.reject(error); 
+
+            };
+        });
+
+        app.config.globalProperties.$api = api;
+    });
 
 export { api };
