@@ -6,7 +6,7 @@
             <q-form @submit.prevent="sendRegister">
 
                 <q-input
-                    v-model="name"
+                    v-model="fullName"
                     type="text" 
                     label="Nome" 
                     outlined
@@ -88,23 +88,24 @@ import { useQuasar, LocalStorage } from 'quasar';
 
     const $q = useQuasar();
     const router = useRouter();
-    const name = ref<string>('');
+    const fullName = ref<string>('');
     const email = ref<string>('');
     const whatsapp = ref<string>('');
     const password = ref<string>('');
     const confirmPassword = ref<string>('');
     const showPassword = ref<boolean>(false);
+    const issuerId = localStorage.getItem('issuer_id');
 
     async function sendRegister() {
         const payload = {
-            name: name.value,
+            fullName: fullName.value,
             email: email.value,
             whatsapp: whatsapp.value,
             password: password.value
         }
 
         try {
-            const res = await api.post("/auth/register", payload);
+            const res = await api.post(`attendant/all/${issuerId}`, payload);
             console.log(res.data);
 
             if (password.value !== confirmPassword.value) {
@@ -117,7 +118,7 @@ import { useQuasar, LocalStorage } from 'quasar';
                 return;
             }
 
-            if(res.data.success){
+            if(res.data.user){
                 $q.notify({
                     color: 'green',
                     message: 'Usuário cadastrado!',
@@ -125,7 +126,7 @@ import { useQuasar, LocalStorage } from 'quasar';
                     timeout: 2000
                 });
 
-                router.push("/login");
+                router.push("/admin");
             } else {
                 $q.notify({
                     color: 'red',

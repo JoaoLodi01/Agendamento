@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('agenda', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('customers')->onDelete('cascade');
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
 
             $table->unsignedBigInteger('attendant_id');
-            $table->foreign('attendant_id')->references('id')->on('attendants')->onDelete('cascade');
+            $table->foreign('attendant_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');

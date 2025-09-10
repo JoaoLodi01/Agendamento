@@ -1,10 +1,12 @@
-import { boot } from 'quasar/wrappers';
-import { LocalStorage } from 'quasar';
 import axios from 'axios';
+import { LocalStorage } from 'quasar';
+import { boot } from 'quasar/wrappers';
 
 axios.defaults.withCredentials = true;
 
-    const api = axios.create({ baseURL: process.env.API_URL });
+    const api = axios.create({ 
+        baseURL: process.env.API_URL 
+    });
 
     export default boot(({ app, router }) => {
         api.interceptors.request.use((config) => {
@@ -15,20 +17,18 @@ axios.defaults.withCredentials = true;
             '/forgot-password',
             '/reset-password',
             '/auth/login',
+            '/auth/register',
             '/registers/create'
 
             ];
 
             const isPublic = publicAPIRoutes.some(route => config.url.includes(route));
 
-            if (!token && !isPublic && LocalStorage.getItem("auth_token"))
-            {
-                console.log('token:', token);
-                
+            if (!token && !isPublic) {
                 LocalStorage.remove("user_id");
                 LocalStorage.remove("auth_token");
-                router.replace({ path: '/login' });
-            
+                router.replace({ path: 'auth/login' });
+
                 return Promise.reject(new Error("Usuário não autenticado"));
             }
 

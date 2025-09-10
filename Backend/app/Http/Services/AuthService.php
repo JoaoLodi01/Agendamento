@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\AuthService;
+namespace App\Http\Services;
 
-use App\Repositories\AuthRepository;
+use App\Http\Repositories\Eloquent\AuthRepository;
 
 class AuthService
 {
@@ -10,7 +10,10 @@ class AuthService
         protected AuthRepository $authRepository
     ){}
 
-    public function index(){}
+    public function index(int $issuer_id)
+    {
+        $all = $this->authRepository->index($issuer_id);
+    }
 
     public function store(array $data)
     {

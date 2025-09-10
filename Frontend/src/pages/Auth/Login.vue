@@ -79,11 +79,9 @@ import { useQuasar, LocalStorage } from 'quasar';
 
                 console.log(res.data);
 
-                if(res.data.success){
-                    if (res.data.token) {
-                        LocalStorage.set("auth_token", res.data.token);
-                        LocalStorage.set("user_id", res.data.user.id);
-                    }
+                if(res.data.token){
+                    LocalStorage.set("auth_token", res.data.token);
+                    LocalStorage.set("user_id", res.data.user.id);
 
                     $q.notify({
                         color: 'green',
@@ -94,12 +92,12 @@ import { useQuasar, LocalStorage } from 'quasar';
 
                     router.push('/admin');
                 } else {
-                    $q.notify({
+                     $q.notify({
                         color: 'red',
-                        message: 'Erro no login',
+                        message: 'Não foi possível autenticar',
                         position: 'top',
                         timeout: 2000
-                    })
+                    });
                 };
 
             } catch (error) {

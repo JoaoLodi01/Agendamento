@@ -30,11 +30,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('attendant')->group(function (){
-        Route::get('all', [AttendantController::class, 'index']);
-        Route::post('store', [AttendantController::class, 'store']);
-        Route::get('show/{id}', [AttendantController::class, 'show']);
-        Route::put('update/{id}', [AttendantController::class, 'update']);
-        Route::delete('destroy/{id}', [AttendantController::class, 'destroy']);
+        Route::get('all', [AuthController::class, 'index']);
+        Route::post('store', [AuthController::class, 'store']);
+        Route::get('show/{id}', [AuthController::class, 'show']);
+        Route::put('update/{id}', [AuthController::class, 'update']);
+        Route::delete('destroy/{id}', [AuthController::class, 'destroy']);
     });
 
     Route::prefix('client')->group(function (){
