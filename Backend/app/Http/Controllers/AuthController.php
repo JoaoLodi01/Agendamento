@@ -17,7 +17,7 @@ class AuthController extends Controller
 
     public function index(int $issuer_id)
     {
-        $this->userService->index($issuer_id);
+        return $this->authService->index($issuer_id);
     }
 
     public function login(LoginAuthRequest $request)
@@ -42,9 +42,12 @@ class AuthController extends Controller
     {
         $user = $this->authService->store($request->validated());
 
+        $token = $user->createToken('attendant-token')->plainTextToken;
+
         return response()->json([
             'message' => 'Usuário registrado com sucesso!',
-            'user' => $user
+            'token' => $token,
+            'user' => $user,
         ], 201);
     }
 

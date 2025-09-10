@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('attendant')->group(function (){
-        Route::get('all', [AuthController::class, 'index']);
+        Route::get('all/{issuerId}', [AuthController::class, 'index']);
         Route::post('store', [AuthController::class, 'store']);
         Route::get('show/{id}', [AuthController::class, 'show']);
         Route::put('update/{id}', [AuthController::class, 'update']);

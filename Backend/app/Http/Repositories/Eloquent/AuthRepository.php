@@ -11,8 +11,11 @@ class AuthRepository
 {
     public function index(int $issuer_id)
     {   
-        $issuer = Issuer::where('id', $issuer_id)->first();
-        $users = User::where('issuer_id', $issuer->user_code)->get();
+        $issuer = Issuer::findOrFail($issuer_id);
+
+        $users = User::where('issuer_code', $issuer->id)->get();
+
+        return $users;
     }
 
     public function store(array $data)
@@ -51,7 +54,7 @@ class AuthRepository
 
     public function show(int $id)
     {
-        $user = User::where('id', $id)->first();
+        return $user = User::where('id', $id)->first();
     }
     
     public function update(array $data, int $id)

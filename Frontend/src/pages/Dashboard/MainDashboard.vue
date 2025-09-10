@@ -12,7 +12,7 @@
             </div>
 
             <div class="bg-blue-800 text-white rounded-xl max-w-96 min-h-32 shadow-md mb-4 ">
-                <h1 class="text-lg p-5 font-bold">Total de atendimentos</h1>
+            <h1 class="text-lg p-5 font-bold">Total de atendimentos</h1>
                 <h2 class="text-3xl m-5 font-bold">|    0</h2>
             </div>
 

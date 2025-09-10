@@ -54,7 +54,7 @@
 				outlined
 				dense
 				@click="logout()"
-				class="m-32"
+				class="ml-16 mt-48 w-32"
 			/>
 		</q-drawer>
 
@@ -92,6 +92,7 @@ import {
 		{ label: 'Atendentes', icon: UserGroupIcon, to: '/admin/attendants' },
 		{ label: 'Clientes', icon: UsersIcon, to: '/admin/clients' },
 		{ label: 'Categorias', icon: FolderIcon, to: '/admin/categories' },
+		{ label: 'Produtos', icon: FolderIcon, to: '/admin/products' },
 		{ label: 'Configurações', icon: Cog6ToothIcon, to: '/admin/settings' },
 		{ label: 'Licença', icon: KeyIcon, to: '/admin/license' }
 	];

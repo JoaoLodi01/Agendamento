@@ -94,9 +94,18 @@ import { useQuasar, LocalStorage } from 'quasar';
     const password = ref<string>('');
     const confirmPassword = ref<string>('');
     const showPassword = ref<boolean>(false);
-    const issuerId = localStorage.getItem('issuer_id');
 
     async function sendRegister() {
+        if (password.value !== confirmPassword.value) {
+            $q.notify({
+                color: 'red',
+                message: 'As senhas não coincidem!',
+                position: 'top'
+            });
+
+            return;
+        }
+
         const payload = {
             fullName: fullName.value,
             email: email.value,
@@ -105,42 +114,31 @@ import { useQuasar, LocalStorage } from 'quasar';
         }
 
         try {
-            const res = await api.post(`attendant/all/${issuerId}`, payload);
+            const res = await api.post('auth/register', payload);
             console.log(res.data);
 
-            if (password.value !== confirmPassword.value) {
-                $q.notify({
-                    color: 'red',
-                    message: 'As senhas não coincidem!',
-                    position: 'top'
-                });
+            if (res.data) {
+                LocalStorage.set("auth_token", res.data.token);
+                LocalStorage.set("user_id", res.data.user.id);
+                LocalStorage.set("issuer_id", res.data.user.issuer_code);
 
-                return;
             }
 
-            if(res.data.user){
-                $q.notify({
-                    color: 'green',
-                    message: 'Usuário cadastrado!',
-                    position: 'top',
-                    timeout: 2000
-                });
+            $q.notify({
+                color: 'green',
+                message: 'Usuário cadastrado!',
+                position: 'top',
+                timeout: 2000
+            });
 
-                router.push("/admin");
-            } else {
-                $q.notify({
-                    color: 'red',
-                    message: 'Erro ao cadastrar',
-                    position: 'top',
-                    timeout: 2000
-                });
-            }
+            router.push("/admin");
+
         } catch (error) {
             console.error(error);
 
             $q.notify({
                 color: 'red',
-                message: 'Erro no servidor. Tente novamente mais tarde.',
+                message: 'Erro ao cadastrar, contato o suporte.',
                 position: 'top'
             });
         }

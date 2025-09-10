@@ -76,12 +76,13 @@ import { useQuasar, LocalStorage } from 'quasar';
                         Accept: 'application/json'
                     }
                 });
-
+                
                 console.log(res.data);
 
                 if(res.data.token){
                     LocalStorage.set("auth_token", res.data.token);
                     LocalStorage.set("user_id", res.data.user.id);
+                    LocalStorage.set("issuer_id", res.data.user.issuer_code);
 
                     $q.notify({
                         color: 'green',
