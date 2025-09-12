@@ -11,6 +11,17 @@
         </div>
 
         <div class="mx-10 bg-white h-[85vh] p-10 rounded-xl shadow-md overflow-auto">
+            <q-table
+                :rows="rows"
+                :columns="columns"
+                row-key="id"
+                selection="multiple"
+                v-model:selected="selectedRows"
+                bordered
+                class="rounded-xl bg-white  shadow-md"
+            />
+
+            
         </div>
     </q-page>
 </template>
@@ -21,7 +32,6 @@ import { api } from 'src/boot/axios';
 import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar';
 import type { QTableColumn } from 'quasar';
-import qcalendar from 'src/boot/qcalendar';
 
     type TAttendantsTable = {
         id: number;
@@ -36,11 +46,12 @@ import qcalendar from 'src/boot/qcalendar';
     const rows = ref<TAttendantsTable[]>([]);
     const issuerId = LocalStorage.getItem('issuer_id');
 
-    const columns: QTableColumn<TAttendantsTable>[] = [
+    const columns: QTableColumn[] = [
         { name: 'full_name', label: 'Nome', align: 'center', field: 'full_name', sortable: true },
         { name: 'email', label: 'E-mail', align: 'center', field: 'email', sortable: true },
         { name: 'phone', label: 'Contato', align: 'center', field: 'phone', sortable: true },
         { name: 'role', label: 'Função', align: 'center', field: 'role', sortable: true },
+        { name: 'actions', label: 'Ações', align: 'center', field: 'actions', sortable: true },
     ];
 
     onMounted(async () => {

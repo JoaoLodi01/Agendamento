@@ -27,6 +27,18 @@
             <div class="border border-gray-300 bg-white text-gray-700 rounded-xl max-w-96 min-h-80 shadow-md mb-4">
                 <h2 class="text-lg p-5 font-bold">Clientes a mais tempo sem agendamento</h2>
             </div>
+
+            <div class="border border-gray-300 bg-white text-gray-700 rounded-xl max-w-96 min-h-80 shadow-md mb-4">
+                <h2 class="text-lg p-5 font-bold">Totais de comissões</h2>
+            </div>
+
+            <div class="border border-gray-300 bg-white text-gray-700 rounded-xl max-w-96 min-h-80 shadow-md mb-4">
+                <h2 class="text-lg p-5 font-bold">Produtos mais vendidos</h2>
+            </div>
+
+            <div class="border border-gray-300 bg-white text-gray-700 rounded-xl max-w-96 min-h-80 shadow-md mb-4">
+                <h2 class="text-lg p-5 font-bold">Melhores horários</h2>
+            </div>
         </div>
         
     </q-page>

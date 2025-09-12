@@ -1,6 +1,7 @@
-import { boot } from 'quasar/wrappers'
-import QCalendar from '@quasar/quasar-ui-qcalendar'
+import { defineBoot } from '#q-app/wrappers'
+import VuePlugin from '@quasar/quasar-ui-qcalendar/QCalendarDay'
+import '@quasar/quasar-ui-qcalendar/QCalendarDay.css'
 
-export default boot(({ app }) => {
-  app.use(QCalendar)
+export default defineBoot(({ app }) => {
+    app.use(VuePlugin)
 })
