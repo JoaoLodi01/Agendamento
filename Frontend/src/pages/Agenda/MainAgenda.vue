@@ -79,7 +79,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { api } from 'src/boot/axios';
 import { LocalStorage } from 'quasar';
-import { QCalendarAgenda } from '@quasar/quasar-ui-qcalendar'
+import { QCalendar } from '@quasar/quasar-ui-qcalendar'
 
     const events = ref([])
     const attendants = ref([])
@@ -105,15 +105,19 @@ import { QCalendarAgenda } from '@quasar/quasar-ui-qcalendar'
 
     onMounted(async () => {
         try {
-            const res = await api.get(`attendant/all/${issuerId}`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
+            const attendantRes = await api.get(`attendant/all/${issuerId}`);
+            attendants.value = attendantRes.data;
 
-            });
+            const agendaRes = await api.get(`agenda/all/${issuerId}`);
+            events.value = agendaRes.data.map((item: any) => ({
+                id: item.id,
+                title: `${item.description}`,
+                start: item.start_at,
+                end: item.end_at,
+                attendantId: item.attendant_id,
+            }));
 
-            attendants.value = Array.isArray(res.data) ? res.data : [];
-            console.log(res);
+            console.log(attendantRes, agendaRes,);
 
         } catch (error) {
             console.log('Erro ao carregar usuários: ', error);

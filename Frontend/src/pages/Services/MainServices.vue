@@ -7,6 +7,7 @@
                 label="Cadastrar serviço"
                 color="primary"
                 class="mr-10 rounded-xl"
+                @click="registerServices()"
             />
         </div>
 
@@ -19,7 +20,40 @@
                 v-model:selected="selectedRows"
                 bordered
                 class="rounded-xl bg-white  shadow-md"
-            />
+            >
+
+                <template v-slot:body-cell-actions="props">
+                    <q-td 
+                        :props="props" 
+                        align="center"
+                    >
+
+                        <q-btn
+                            flat
+                            color="primary"
+                            icon="edit" 
+                            @click="editService(props.row)"
+                        />
+
+                        <q-btn
+                            flat  
+                            color="negative"
+                            icon="delete" 
+                            @click="deleteService(props.row)"
+                            class="q-ml-sm"
+                        />
+
+                        <q-btn
+                            flat  
+                            color="black"
+                            icon="visibility" 
+                            @click="visibilityService(props.row)"
+                            class="q-ml-sm"
+                        />
+
+                        </q-td>
+                </template>
+            </q-table>
         </div>
     </q-page>
 </template>
@@ -31,25 +65,44 @@ import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar';
 import type { QTableColumn } from 'quasar';
 
-    type TAttendantsTable = {
+    type TServicesTable = {
         id: number;
-        full_name: string;
-        email: string;
-        phone: string;
-        role: string;
+        service: string;
+        duration: string;
+        price: number
+        categories_id: number
+        description: string
+        home_service: boolean
+        check_availability: boolean
     };
 
-    const issuerId = LocalStorage.getItem('issuer_id');
     const router = useRouter();
-    const rows = ref<TAttendantsTable[]>([]);
     const selectedRows = ref([]);
+    const rows = ref<TServicesTable[]>([]);
+    const issuerId = LocalStorage.getItem('issuer_id');
 
-    const columns: QTableColumn<TAttendantsTable>[] = [
-        { name: 'full_name', label: 'Nome', align: 'center', field: 'full_name', sortable: true },
-        { name: 'email', label: 'E-mail', align: 'center', field: 'email', sortable: true },
-        { name: 'phone', label: 'Contato', align: 'center', field: 'phone', sortable: true },
-        { name: 'role', label: 'Função', align: 'center', field: 'role', sortable: true },
+    const columns: QTableColumn[] = [
+        { name: 'service', label: 'Serviço', align: 'center', field: 'service', sortable: true },
+        { name: 'duration', label: 'Duração', align: 'center', field: 'duration', sortable: true },
+        { name: 'price', label: 'Preço', align: 'center', field: 'price', sortable: true },
+        { name: 'actions', label: 'Ações', align: 'center', field: 'actions', sortable: true },
     ];
+
+    function registerServices() {
+        router.push('/admin/services/register');
+    }
+
+    function editService(service: TServicesTable) {
+        router.push('/admin/services/register');
+    }
+
+    function deleteService(service: TServicesTable) {
+        router.push('/admin/services/register');
+    }
+
+    function visibilityService(service: TServicesTable) {
+        router.push('/admin/services/register');
+    }
 
     onMounted(async () => {
         try {
@@ -59,10 +112,10 @@ import type { QTableColumn } from 'quasar';
                 }
             });
             rows.value = Array.isArray(res.data) ? res.data : [];
-            console.log(res);
+            console.log("Serviços:", res.data);
 
         } catch (error) {
-            console.log('Erro ao carregar usuários: ', error);
+            console.log('Erro ao carregar serviços: ', error);
         }
     });
 

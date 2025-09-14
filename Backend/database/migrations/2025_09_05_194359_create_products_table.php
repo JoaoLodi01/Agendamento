@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product', 120);
             $table->decimal('value', 16,2);
             $table->float('amount', 16,2);
+            $table->unsignedBigInteger('issuer_code')->index();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

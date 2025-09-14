@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { api } from 'src/boot/axios';
-import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router';
 import { LocalStorage } from 'quasar';
 import type { QTableColumn } from 'quasar';
 

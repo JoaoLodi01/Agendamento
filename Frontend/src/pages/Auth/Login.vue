@@ -91,7 +91,7 @@ import { useQuasar, LocalStorage } from 'quasar';
                         timeout: 2000
                     });
 
-                    router.push('/admin');
+                    router.push('/admin/dashboard');
                 } else {
                      $q.notify({
                         color: 'red',

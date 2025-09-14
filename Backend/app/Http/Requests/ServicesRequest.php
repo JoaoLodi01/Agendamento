@@ -11,7 +11,7 @@ class ServicesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class ServicesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'service' => 'required|string',
+            'duration' => 'required|string',
+            'price' => 'required|numeric',
+            'categories_id' => 'nullable|numeric',
+            'description' => 'nullable|string',
+            'home_service' => 'nullable|boolean',
+            'check_availability' => 'nullable|boolean'
         ];
     }
 }

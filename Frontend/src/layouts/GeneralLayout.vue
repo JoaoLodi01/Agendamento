@@ -27,12 +27,11 @@
 
                 
 
-                <q-toolbar-title class="text-center font-serif text-2xl cursor-pointer" style="flex-grow: 1; text-align: center;" @click="router.push('/general')">
+                <q-toolbar-title class="text-center font-serif text-2xl cursor-pointer" style="flex-grow: 1; text-align: center;" @click="router.push('/')">
                     <q-img
                         src="/logo.png"
                         style="max-width: 250px; max-height: 400px;"
                         fit="contain"
-                        @click="router.push('/admin')"
                         class="cursor-pointer"
                     />
                 </q-toolbar-title>

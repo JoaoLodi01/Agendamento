@@ -7,6 +7,7 @@
                 label="Cadastrar Atendente"
                 color="primary"
                 class="mr-10 rounded-xl"
+                @click="registerAttendants()"
             />
         </div>
 
@@ -19,9 +20,39 @@
                 v-model:selected="selectedRows"
                 bordered
                 class="rounded-xl bg-white  shadow-md"
-            />
+            >
 
-            
+                <template v-slot:body-cell-actions="props">
+                    <q-td 
+                        :props="props" 
+                        align="center"
+                    >
+
+                        <q-btn
+                            flat
+                            color="primary"
+                            icon="edit" 
+                            @click="editAttendant(props.row)"
+                        />
+
+                        <q-btn
+                            flat  
+                            color="negative"
+                            icon="delete" 
+                            @click="deleteAttendant(props.row)"
+                            class="q-ml-sm"
+                        />
+
+                        <q-btn
+                            flat  
+                            color="black"
+                            icon="visibility" 
+                            @click="visibilityAttendant(props.row)"
+                            class="q-ml-sm"
+                        />
+                    </q-td>
+                </template>
+            </q-table>
         </div>
     </q-page>
 </template>
@@ -54,6 +85,22 @@ import type { QTableColumn } from 'quasar';
         { name: 'actions', label: 'Ações', align: 'center', field: 'actions', sortable: true },
     ];
 
+    function registerAttendants() {
+        router.push('/admin/attendants/register');
+    }
+
+    function editAttendant(service: TAttendantsTable) {
+        router.push('/admin/attendants/register');
+    }
+
+    function deleteAttendant(service: TAttendantsTable) {
+        router.push('/admin/attendants/register');
+    }
+
+    function visibilityAttendant(service: TAttendantsTable) {
+        router.push('/admin/attendants/register');
+    }
+
     onMounted(async () => {
         try {
             const res = await api.get(`attendant/all/${issuerId}`, {
@@ -62,10 +109,10 @@ import type { QTableColumn } from 'quasar';
                 }
             });
             rows.value = Array.isArray(res.data) ? res.data : [];
-            console.log(res);
+            console.log("Atendentes:", res.data);
 
         } catch (error) {
-            console.log('Erro ao carregar usuários: ', error);
+            console.log('Erro ao carregar atendentes: ', error);
         }
     });
 

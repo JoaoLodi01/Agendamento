@@ -3,23 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\ServicesRequest;
+use App\Http\Services\ServicesService;
 
 class ServicesController extends Controller
 {
+    public function __construct (
+        protected ServicesService $servicesService
+    ){}
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(int $issuer_id)
     {
-        //
+        return $this->servicesService->index($issuer_id);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ServicesRequest $request, int $issuer_id)
     {
-        //
+        return $this->servicesService->store($request->validated(), $issuer_id);
     }
 
     /**

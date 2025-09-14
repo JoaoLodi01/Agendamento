@@ -14,7 +14,12 @@ class Service extends Model
     protected $fillable = [
         'service',
         'duration',
+        'price',
+        'categories_id',
         'description',
+        'home_service',
+        'check_availability',
+        'issuer_code',
         'active',
     ];
 

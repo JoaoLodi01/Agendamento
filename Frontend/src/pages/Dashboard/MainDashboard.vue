@@ -1,6 +1,6 @@
 <template>
     <q-page>
-        <div class="grid grid-cols-3 ml-20 mt-20">
+        <div class="grid grid-cols-3 ml-20 mt-10">
             <div class="bg-blue-600 text-white rounded-xl max-w-96 min-h-32 shadow-md mb-4">
                 <h1 class="text-lg p-5 font-bold">Faturamento total</h1>
                 <h2 class="text-3xl m-5 font-bold">|    R$ 0,00</h2>

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('agenda', function (Blueprint $table) {
             $table->id();
+            $table->string('description');
             $table->unsignedBigInteger('client_id');
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
 
@@ -22,9 +23,11 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
 
-            $table->dateTime('scheduled_at');
+            $table->dateTime('start_at');
+            $table->dateTime('end_at');
             $table->decimal('price', 10, 2)->nullable();
-            $table->enum('status', ['scheduled','completed','canceled'])->default('scheduled');
+            $table->enum('status', ['free' ,'scheduled','completed','canceled'])->default('free');
+            $table->unsignedBigInteger('issuer_code')->index();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

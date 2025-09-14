@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->string('service', 120);
             $table->decimal('duration', 16,2);
+            $table->decimal('price', 16,2);
+            $table->unsignedBigInteger('categories_id')->nullable();
+            $table->foreign('categories_id')->references('id')->on('categories')->onDelete('cascade');
             $table->string('description')->nullable();
+            $table->boolean('home_service')->default(0);
+            $table->boolean('check_availability')->default(0);
+            $table->unsignedBigInteger('issuer_code')->index();
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

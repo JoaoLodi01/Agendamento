@@ -34,7 +34,7 @@
 					tag="router-link"
 					:to="link.to"
 					class="mb-2 ml-2 w-64"
-					:class="{ 'bg-primary px-10 text-white rounded-xl': route.path === link.to }"
+					:class="{ 'bg-primary px-10 text-white rounded-xl': route.path.startsWith(link.to) }"
 				>
 					<q-item-section avatar>
 						<component :is="link.icon" class="w-5 h-5 text-white" />
@@ -85,7 +85,7 @@ import {
 	const leftDrawerOpen = ref(false);
 
 	const links = [
-		{ label: 'Dashboard', icon: HomeIcon, to: '/admin' },
+		{ label: 'Dashboard', icon: HomeIcon, to: '/admin/dashboard' },
 		{ label: 'Agenda', icon: CalendarIcon, to: '/admin/agenda' },
 		{ label: 'Comissões', icon: ChartBarIcon, to: '/admin/comissions' },
 		{ label: 'Serviços', icon: ClipboardDocumentCheckIcon, to: '/admin/services' },
