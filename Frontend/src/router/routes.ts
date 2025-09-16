@@ -40,11 +40,13 @@ const routes: RouteRecordRaw[] = [
         children: [
             { path: 'dashboard', component: () => import('../pages/Dashboard/MainDashboard.vue') },
             { path: 'agenda', component: () => import('../pages/Agenda/MainAgenda.vue') },
+            { path: 'agenda/register', component: () => import('../pages/Agenda/RegisterAgenda.vue') },
             { path: 'comissions', component: () => import('../pages/Comissions/MainComissions.vue') },
             { path: 'services', component: () => import('../pages/Services/MainServices.vue') },
             { path: 'services/register', component: () => import('../pages/Services/RegisterServices.vue') },
             { path: 'attendants', component: () => import('../pages/Attendants/MainAttendants.vue') },
             { path: 'attendants/register', component: () => import('../pages/Attendants/RegisterAttendants.vue') },
+            { path: 'attendants/register/hours', component: () => import('../pages/Attendants/RegisterHours.vue') },
             { path: 'clients', component: () => import('../pages/Clients/MainClients.vue') },
             { path: 'clients/register', component: () => import('../pages/Clients/RegisterClients.vue') },
             { path: 'categories', component: () => import('../pages/Categories/MainCategories.vue') },

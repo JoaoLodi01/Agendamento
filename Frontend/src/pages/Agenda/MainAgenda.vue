@@ -7,6 +7,7 @@
                 label="Cadastrar Agendamento"
                 color="primary"
                 class="rounded-xl"
+                @click="registerAgenda()"
             />
         </div>
 
@@ -78,9 +79,11 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { api } from 'src/boot/axios';
+import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar';
 import { QCalendar } from '@quasar/quasar-ui-qcalendar'
 
+    const router = useRouter();
     const events = ref([])
     const attendants = ref([])
     const viewAgenda = ref({
@@ -102,25 +105,30 @@ import { QCalendar } from '@quasar/quasar-ui-qcalendar'
         const date = new Date(selectedDate.value)
             return new Intl.DateTimeFormat('pt-BR', { month: 'long' }).format(date) + ' ' + date.getFullYear()
     })
+    
+    function registerAgenda() {
+        router.push('/admin/agenda/register');
+    }
 
     onMounted(async () => {
         try {
             const attendantRes = await api.get(`attendant/all/${issuerId}`);
-            attendants.value = attendantRes.data;
+            attendants.value = attendantRes.data.Dados || [];
 
             const agendaRes = await api.get(`agenda/all/${issuerId}`);
-            events.value = agendaRes.data.map((item: any) => ({
+            events.value = Array.isArray(agendaRes.data.Dados) ? agendaRes.data.Dados.map((item: any) => ({
                 id: item.id,
-                title: `${item.description}`,
-                start: item.start_at,
-                end: item.end_at,
+                title: `Serviço #${item.service_id}`,
+                start: item.start_time,
+                end: item.end_time,
                 attendantId: item.attendant_id,
-            }));
+            })) : [];
 
-            console.log(attendantRes, agendaRes,);
+            console.log('Atendentes:', attendants.value);
+            console.log('Eventos:', agendaRes.data.Dados);
 
         } catch (error) {
-            console.log('Erro ao carregar usuários: ', error);
+            console.log('Erro ao carregar agendamentos: ', error);
         }
     });
 

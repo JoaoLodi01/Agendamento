@@ -19,44 +19,42 @@
 </template>
 
 <script setup lang="ts">
+
 import { onMounted, ref, watch } from 'vue';
 import { api } from 'src/boot/axios';
 import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar';
 import type { QTableColumn } from 'quasar';
 
-    type TAttendantsTable = {
+    type TComissionTable = {
         id: number;
-        full_name: string;
-        email: string;
-        phone: string;
-        role: string;
+        description: string;
+        value: string;
+
     };
 
-    const issuerId = LocalStorage.getItem('issuer_id');
     const router = useRouter();
-    const rows = ref<TAttendantsTable[]>([]);
     const selectedRows = ref([]);
+    const rows = ref<TComissionTable[]>([]);
+    const issuerId = LocalStorage.getItem('issuer_id');
 
-    const columns: QTableColumn<TAttendantsTable>[] = [
-        { name: 'full_name', label: 'Nome', align: 'center', field: 'full_name', sortable: true },
-        { name: 'email', label: 'E-mail', align: 'center', field: 'email', sortable: true },
-        { name: 'phone', label: 'Contato', align: 'center', field: 'phone', sortable: true },
-        { name: 'role', label: 'Função', align: 'center', field: 'role', sortable: true },
+    const columns: QTableColumn<TComissionTable>[] = [
+        { name: 'description', label: 'Descrição', align: 'center', field: 'description', sortable: true },
+        { name: 'value', label: 'Valor', align: 'center', field: 'value', sortable: true },
     ];
 
     onMounted(async () => {
         try {
-            const res = await api.get(`comssions/all/${issuerId}`, {
+            const res = await api.get(`comissions/all/${issuerId}`, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            rows.value = Array.isArray(res.data) ? res.data : [];
-            console.log(res);
+            rows.value = Array.isArray(res.data.Dados) ? res.data.Dados : [];
+            console.log(res.data.Dados);
 
         } catch (error) {
-            console.log('Erro ao carregar usuários: ', error);
+            console.log('Erro ao carregar comissões: ', error);
         }
     });
 

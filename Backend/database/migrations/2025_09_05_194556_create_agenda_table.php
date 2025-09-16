@@ -13,23 +13,24 @@ return new class extends Migration
     {
         Schema::create('agenda', function (Blueprint $table) {
             $table->id();
-            $table->string('description');
-            $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
 
+            $table->unsignedBigInteger('client_id')->nullable();
             $table->unsignedBigInteger('attendant_id');
-            $table->foreign('attendant_id')->references('id')->on('users')->onDelete('cascade');
-
             $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-
-            $table->dateTime('start_at');
-            $table->dateTime('end_at');
+            $table->tinyInteger('day_of_week')->nullable();
+            $table->time('start_time')->nullable();
+            $table->time('end_time')->nullable();
+            $table->time('break_start')->nullable();
+            $table->time('break_end')->nullable();
+            $table->integer('service_interval')->default(30);
             $table->decimal('price', 10, 2)->nullable();
-            $table->enum('status', ['free' ,'scheduled','completed','canceled'])->default('free');
+            $table->string('status')->default('scheduled');
             $table->unsignedBigInteger('issuer_code')->index();
-            $table->boolean('active')->default(1);
+            $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            $table->foreign('attendant_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
         });
     }
 
@@ -38,6 +39,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Agenda');
+        Schema::dropIfExists('agenda');
     }
 };

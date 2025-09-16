@@ -16,7 +16,11 @@ class ServicesController extends Controller
      */
     public function index(int $issuer_id)
     {
-        return $this->servicesService->index($issuer_id);
+        $services = $this->servicesService->index($issuer_id);
+
+        return response()->json([
+            'Dados' => $services,
+        ]);
     }
 
     /**

@@ -11,7 +11,7 @@ class AgendaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class AgendaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customer_id' => 'nullable',
+            'attendant_id' => 'required',
+            'service_id' => 'required',
+            'day_of_week' => 'nullable',
+            'start_time' => 'nullable',
+            'end_time' => 'nullable',
+            'break_start' => 'nullable',
+            'break_end' => 'nullable',
+            'service_interval' => 'nullable|integer',
+            'scheduled_at' => 'nullable|date',
+            'price' => 'nullable|numeric',
+            'status' => 'nullable|string',
+            'active' => 'nullable|boolean',
         ];
     }
 }

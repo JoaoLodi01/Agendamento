@@ -27,6 +27,7 @@ class Client extends Model
         'district',
         'complement',
         'photo',
+        'issuer_code',
         'active',
     ];
 

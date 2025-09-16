@@ -12,12 +12,19 @@ class Agenda extends Model
     protected $table = 'agenda';
 
     protected $fillable = [
-        'customer_id',
+        'client_id',
         'attendant_id',
         'service_id',
+        'day_of_week',
+        'start_time',
+        'end_time',
+        'break_start',
+        'break_end',
+        'service_interval',
         'scheduled_at',
         'price',
         'status',
+        'issuer_code',
         'active',
     ];
 

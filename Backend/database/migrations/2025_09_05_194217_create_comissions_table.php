@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('comissions', function (Blueprint $table) {
             $table->id();
+            $table->string('description');
+            $table->decimal('value');
             $table->unsignedBigInteger('issuer_code')->index();
             $table->boolean('active')->default(1);
             $table->timestamps();

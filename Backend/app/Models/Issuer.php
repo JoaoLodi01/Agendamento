@@ -25,7 +25,7 @@ class Issuer extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class, 'issuer_code', 'id');
+        return $this->hasMany(User::class, 'issuer_code');
     }
 
     public function owner()

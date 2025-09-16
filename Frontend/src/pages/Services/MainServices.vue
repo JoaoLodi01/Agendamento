@@ -19,40 +19,39 @@
                 selection="multiple"
                 v-model:selected="selectedRows"
                 bordered
-                class="rounded-xl bg-white  shadow-md"
-            >
+                class="rounded-xl bg-white  shadow-md">
 
-                <template v-slot:body-cell-actions="props">
-                    <q-td 
-                        :props="props" 
-                        align="center"
-                    >
+                    <template v-slot:body-cell-actions="props">
+                        <q-td 
+                            :props="props" 
+                            align="center"
+                        >
 
-                        <q-btn
-                            flat
-                            color="primary"
-                            icon="edit" 
-                            @click="editService(props.row)"
-                        />
+                            <q-btn
+                                flat
+                                color="primary"
+                                icon="edit" 
+                                @click="editService(props.row)"
+                            />
 
-                        <q-btn
-                            flat  
-                            color="negative"
-                            icon="delete" 
-                            @click="deleteService(props.row)"
-                            class="q-ml-sm"
-                        />
+                            <q-btn
+                                flat  
+                                color="negative"
+                                icon="delete" 
+                                @click="deleteService(props.row)"
+                                class="q-ml-sm"
+                            />
 
-                        <q-btn
-                            flat  
-                            color="black"
-                            icon="visibility" 
-                            @click="visibilityService(props.row)"
-                            class="q-ml-sm"
-                        />
+                            <q-btn
+                                flat  
+                                color="black"
+                                icon="visibility" 
+                                @click="visibilityService(props.row)"
+                                class="q-ml-sm"
+                            />
 
                         </q-td>
-                </template>
+                    </template>
             </q-table>
         </div>
     </q-page>
@@ -111,8 +110,8 @@ import type { QTableColumn } from 'quasar';
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            rows.value = Array.isArray(res.data) ? res.data : [];
-            console.log("Serviços:", res.data);
+            rows.value = Array.isArray(res.data.Dados) ? res.data.Dados : [];
+            console.log("Serviços:", res.data.Dados);
 
         } catch (error) {
             console.log('Erro ao carregar serviços: ', error);

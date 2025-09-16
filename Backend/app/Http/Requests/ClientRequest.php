@@ -11,7 +11,7 @@ class ClientRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class ClientRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'full_name' => 'required|string',
+            'cpf' => 'nullable',
+            'cnpj' => 'nullable',
+            'phone' => 'nullable',
+            'email' => 'nullable',
+            'date_birth' => 'nullable',
+            'sex' => 'nullable',
+            'cep' => 'nullable',
+            'uf' => 'nullable',
+            'municipality' => 'nullable',
+            'address' => 'nullable',
+            'number' => 'nullable',
+            'district' => 'nullable',
+            'complement' => 'nullable',
+            'photo' => 'nullable',
+            'active' => 'nullable',
         ];
     }
 }

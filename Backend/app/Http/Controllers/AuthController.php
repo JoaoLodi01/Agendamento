@@ -17,7 +17,11 @@ class AuthController extends Controller
 
     public function index(int $issuer_id)
     {
-        return $this->authService->index($issuer_id);
+        $users = $this->authService->index($issuer_id);
+
+        return response()->json([
+            'Dados' => $users,
+        ]);
     }
 
     public function login(LoginAuthRequest $request)

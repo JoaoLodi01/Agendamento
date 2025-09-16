@@ -121,6 +121,7 @@ import { useQuasar, LocalStorage } from 'quasar';
                 LocalStorage.set("auth_token", res.data.token);
                 LocalStorage.set("user_id", res.data.user.id);
                 LocalStorage.set("issuer_id", res.data.user.issuer_code);
+                LocalStorage.set("issuer_name", res.data.user.fullName);
 
             }
 

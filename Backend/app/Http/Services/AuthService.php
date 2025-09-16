@@ -12,7 +12,7 @@ class AuthService
 
     public function index(int $issuer_id)
     {
-        return $all = $this->authRepository->index($issuer_id);
+        return $users = $this->authRepository->index($issuer_id);
     }
 
     public function store(array $data)

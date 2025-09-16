@@ -136,6 +136,8 @@ import { LocalStorage } from 'quasar';
                 position: 'top',
                 message: 'Serviço registrado com sucesso!'
             });
+
+            router.push('/admin/services');
         } catch (error) {
             $q.notify({
                 color: 'red',

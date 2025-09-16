@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('number', 120)->nullable();
             $table->string('district', 120)->nullable();
             $table->string('complement', 120)->nullable();
+            $table->string('photo', 120)->nullable();
             $table->unsignedBigInteger('issuer_code')->index();
             $table->boolean('active')->default(1);
             $table->timestamps();

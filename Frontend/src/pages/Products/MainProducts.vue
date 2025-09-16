@@ -7,6 +7,7 @@
                 label="Cadastrar Produto"
                 color="primary"
                 class="mr-10 rounded-xl"
+                @click="registerProducts()"
             />
         </div>
 
@@ -18,38 +19,85 @@
                 selection="multiple"
                 v-model:selected="selectedRows"
                 bordered
-                class="rounded-xl bg-white  shadow-md"
-            />
+                class="rounded-xl bg-white  shadow-md">
+
+                    <template v-slot:body-cell-actions="props">
+                        <q-td 
+                            :props="props" 
+                            align="center"
+                        >
+
+                            <q-btn
+                                flat
+                                color="primary"
+                                icon="edit" 
+                                @click="editProduct(props.row)"
+                            />
+
+                            <q-btn
+                                flat  
+                                color="negative"
+                                icon="delete" 
+                                @click="deleteProduct(props.row)"
+                                class="q-ml-sm"
+                            />
+
+                            <q-btn
+                                flat  
+                                color="black"
+                                icon="visibility" 
+                                @click="visibilityProduct(props.row)"
+                                class="q-ml-sm"
+                            />
+
+                        </q-td>
+                    </template>
+            </q-table>
         </div>
     </q-page>
 </template>
 
 <script setup lang="ts">
+
 import { onMounted, ref, watch } from 'vue';
 import { api } from 'src/boot/axios';
 import { useRouter } from 'vue-router'
 import { LocalStorage } from 'quasar';
 import type { QTableColumn } from 'quasar';
 
-    type TAttendantsTable = {
+    type TProductsTable = {
         id: number;
-        full_name: string;
-        email: string;
-        phone: string;
-        role: string;
+        product: string;
+        value: number;
+        amount: number;
     };
 
-    const issuerId = LocalStorage.getItem('issuer_id');
     const router = useRouter();
-    const rows = ref<TAttendantsTable[]>([]);
     const selectedRows = ref([]);
+    const rows = ref<TProductsTable[]>([]);
+    const issuerId = LocalStorage.getItem('issuer_id');
 
-    const columns: QTableColumn<TAttendantsTable>[] = [
-        { name: 'full_name', label: 'Nome', align: 'center', field: 'full_name', sortable: true },
-        { name: 'email', label: 'E-mail', align: 'center', field: 'email', sortable: true },
-        { name: 'phone', label: 'Contato', align: 'center', field: 'phone', sortable: true },
-        { name: 'role', label: 'Função', align: 'center', field: 'role', sortable: true },
+    const columns: QTableColumn<TProductsTable>[] = [
+        { name: 'product', label: 'Nome', align: 'center', field: 'product', sortable: true },
+        { name: 'value', label: 'Valor', align: 'center', field: 'value', sortable: true },
+        { name: 'amount', label: 'Quantidade', align: 'center', field: 'amount', sortable: true },
     ];
+
+    function registerProducts() {
+        router.push('/admin/products/register');
+    }
+
+    function editProduct(product: TProductsTable) {
+        router.push('/admin/products/register');
+    }
+
+    function deleteProduct(product: TProductsTable) {
+        router.push('/admin/products/register');
+    }
+
+    function visibilityProduct(product: TProductsTable) {
+        router.push('/admin/products/register');
+    }
 
     onMounted(async () => {
         try {
@@ -58,11 +106,11 @@ import type { QTableColumn } from 'quasar';
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            rows.value = Array.isArray(res.data) ? res.data : [];
-            console.log(res);
+            rows.value = Array.isArray(res.data.Dados) ? res.data.Dados : [];
+            console.log(res.data.Dados);
 
         } catch (error) {
-            console.log('Erro ao carregar usuários: ', error);
+            console.log('Erro ao carregar produtos: ', error);
         }
     });
 

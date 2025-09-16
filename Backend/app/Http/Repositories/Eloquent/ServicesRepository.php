@@ -36,18 +36,18 @@ class ServicesRepository
 
     public function show(int $id)
     {
-        return $user = User::where('id', $id)->first();
+        return Service::where('id', $id)->first();
     }
     
     public function update(array $data, int $id)
     {
-        return User::where('id', $id)
+        return Service::where('id', $id)
                     ->update($data);
     }
     
     public function delete(int $id)
     {
-        return User::where('id', $id)
+        return Service::where('id', $id)
                     ->update([
                         'active' => 0,
                     ]);

@@ -7,13 +7,14 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\IssuerController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\AttendantController;
 use App\Http\Controllers\ComissionController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\CategoriesController;
   
 Route::post('auth/login', [AuthController::class, 'login']);
 Route::post('auth/register', [AuthController::class, 'register']);
-    
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('auth')->group(function (){
@@ -23,7 +24,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('agenda')->group(function (){
         Route::get('all/{issuerId}', [AgendaController::class, 'index']);
-        Route::post('store/{issuerId}', [AgendaController::class, 'store']);
+        Route::get('hours/{issuerId}', [AgendaController::class, 'hours']);
+        Route::post('store/client/{issuerId}', [AgendaController::class, 'storeClient']);
+        Route::post('store/manual/{issuerId}', [AgendaController::class, 'storeManual']);
         Route::get('show/{id}', [AgendaController::class, 'show']);
         Route::put('update/{id}', [AgendaController::class, 'update']);
         Route::delete('destroy/{id}', [AgendaController::class, 'destroy']);
@@ -45,7 +48,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('destroy/{id}', [ClientController::class, 'destroy']);
     });
 
-    Route::prefix('comission')->group(function (){
+    Route::prefix('categories')->group(function (){
+        Route::get('all/{issuerId}', [CategoriesController::class, 'index']);
+        Route::post('store/{issuerId}', [CategoriesController::class, 'store']);
+        Route::get('show/{id}', [CategoriesController::class, 'show']);
+        Route::put('update/{id}', [CategoriesController::class, 'update']);
+        Route::delete('destroy/{id}', [CategoriesController::class, 'destroy']);
+    });
+
+    Route::prefix('comissions')->group(function (){
         Route::get('all/{issuerId}', [ComissionController::class, 'index']);
         Route::post('store/{issuerId}', [ComissionController::class, 'store']);
         Route::get('show/{id}', [ComissionController::class, 'show']);

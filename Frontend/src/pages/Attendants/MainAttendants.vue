@@ -46,8 +46,8 @@
                         <q-btn
                             flat  
                             color="black"
-                            icon="visibility" 
-                            @click="visibilityAttendant(props.row)"
+                            icon="timer" 
+                            @click="hoursAttendant(props.row)"
                             class="q-ml-sm"
                         />
                     </q-td>
@@ -89,16 +89,16 @@ import type { QTableColumn } from 'quasar';
         router.push('/admin/attendants/register');
     }
 
-    function editAttendant(service: TAttendantsTable) {
+    function editAttendant(attendant: TAttendantsTable) {
         router.push('/admin/attendants/register');
     }
 
-    function deleteAttendant(service: TAttendantsTable) {
+    function deleteAttendant(attendant: TAttendantsTable) {
         router.push('/admin/attendants/register');
     }
 
-    function visibilityAttendant(service: TAttendantsTable) {
-        router.push('/admin/attendants/register');
+    function hoursAttendant(attendant: TAttendantsTable) {
+        router.push('/admin/attendants/register/hours');
     }
 
     onMounted(async () => {
@@ -108,7 +108,7 @@ import type { QTableColumn } from 'quasar';
                     Authorization: `Bearer ${localStorage.getItem('token')}`
                 }
             });
-            rows.value = Array.isArray(res.data) ? res.data : [];
+            rows.value = Array.isArray(res.data.Dados) ? res.data.Dados : [];
             console.log("Atendentes:", res.data);
 
         } catch (error) {

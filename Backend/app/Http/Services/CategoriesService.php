@@ -2,22 +2,22 @@
 
 namespace App\Http\Services;
 
-use App\Http\Repositories\Eloquent\ServicesRepository;
+use App\Http\Repositories\Eloquent\CategoriesRepository;
 
-class ServicesService
+class CategoriesService
 {
     public function __construct(
-        protected ServicesRepository $serviceRepository
+        protected CategoriesRepository $categoriesRepository
     ){}
 
     public function index(int $issuer_id)
     {
-        return $this->serviceRepository->index($issuer_id);
+        return $this->categoriesRepository->index($issuer_id);
     }
 
     public function store(array $data, int $issuer_id)
     {
-        return $this->serviceRepository->store($data, $issuer_id);
+        return $this->categoriesRepository->store($data, $issuer_id);
     }
 
     public function show(int $id)
