@@ -3,7 +3,9 @@
 namespace App\Http\Repositories\Eloquent;
 
 use App\Models\Agenda;
+use App\Models\Attemda;
 use App\Models\Issuer;
+use App\Models\Service;
 use Illuminate\Support\Facades\Log;
 
 class AgendaRepository
@@ -17,8 +19,9 @@ class AgendaRepository
         return $agenda;
     }
 
-    public function hours(int $issuer_id)
+    public function hours(int $attendant_id, int $issuer_id)
     {   
+        $attendant = 
         $issuer = Issuer::findOrFail($issuer_id);
 
         $hour = Agenda::where('issuer_code', $issuer->id)->get();

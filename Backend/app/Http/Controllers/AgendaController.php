@@ -23,9 +23,9 @@ class AgendaController extends Controller
         ]);
     }
 
-    public function hours(int $issuer_id)
+    public function hours(int $attendant_id, int $issuer_id)
     {
-        $hours = $this->agendaService->hours($issuer_id);
+        $hours = $this->agendaService->hours($issuer_id, $attendant_id);
 
         return response()->json([
             'Dados' => $hours,

@@ -2,7 +2,6 @@
 
 namespace App\Http\Services;
 
-use Illuminate\Http\Request;
 use App\Http\Repositories\Eloquent\AgendaRepository;
 
 class AgendaService
@@ -18,9 +17,9 @@ class AgendaService
         return $this->agendaRepository->index($issuer_id);
     }
 
-    public function hours(int $issuer_id)
+    public function hours(int $attendant_id ,int $issuer_id)
     {
-        return $this->agendaRepository->hours($issuer_id);
+        return $this->agendaRepository->hours($issuer_id, $attendant_id);
     }
     /**
      * Store a newly created resource in storage.

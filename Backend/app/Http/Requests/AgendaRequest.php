@@ -22,7 +22,7 @@ class AgendaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'customer_id' => 'nullable',
+            'client_id' => 'nullable',
             'attendant_id' => 'required',
             'service_id' => 'required',
             'day_of_week' => 'nullable',

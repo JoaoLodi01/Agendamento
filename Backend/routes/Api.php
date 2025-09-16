@@ -24,7 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('agenda')->group(function (){
         Route::get('all/{issuerId}', [AgendaController::class, 'index']);
-        Route::get('hours/{issuerId}', [AgendaController::class, 'hours']);
+        Route::get('store/hours/{issuerId}', [AgendaController::class, 'hours']);
         Route::post('store/client/{issuerId}', [AgendaController::class, 'storeClient']);
         Route::post('store/manual/{issuerId}', [AgendaController::class, 'storeManual']);
         Route::get('show/{id}', [AgendaController::class, 'show']);
